@@ -80,6 +80,16 @@ wms.Source = L.Layer.extend({
         this.refreshOverlay();
     },
 
+    'onRemove': function() {
+        var subLayers = Object.keys(this._subLayers).join(",");
+        if (!this._map) {
+            return
+        }
+        if (subLayers) {
+            this._overlay.remove();
+        }
+    },       
+
     'getEvents': function() {
         if (this.options.identify) {
             return {'click': this.identify};
@@ -89,24 +99,24 @@ wms.Source = L.Layer.extend({
     },
 
     'setOpacity': function(opacity) {
-         this.options.opacity = opacity;
-         if (this._overlay) {
-             this._overlay.setOpacity(opacity);
-         }
+        this.options.opacity = opacity;
+        if (this._overlay) {
+            this._overlay.setOpacity(opacity);
+        }
     },
     
     'bringToBack': function() {
-         this.options.isBack = true;
-         if (this._overlay) {
-             this._overlay.bringToBack();
-         }
+        this.options.isBack = true;
+        if (this._overlay) {
+            this._overlay.bringToBack();
+        }
     },
 
     'bringToFront': function() {
-         this.options.isBack = false;
-         if (this._overlay) {
-             this._overlay.bringToFront();
-         }
+        this.options.isBack = false;
+        if (this._overlay) {
+            this._overlay.bringToFront();
+        }
     },
 
     'getLayer': function(name) {
@@ -176,7 +186,7 @@ wms.Source = L.Layer.extend({
         if (this.options.identifyLayers)
             return this.options.identifyLayers;
         return Object.keys(this._subLayers);
-     },
+    },
 
     'getFeatureInfoParams': function(point, layers) {
         // Hook to generate parameters for WMS service GetFeatureInfo request
@@ -324,15 +334,14 @@ wms.Overlay = L.Layer.extend({
         this._url = url;
 
         // Move WMS parameters to params object
-        var params = {}, opts = {};
+        var params = {};
         for (var opt in options) {
-             if (opt in this.options) {
-                 opts[opt] = options[opt];
-             } else {
-                 params[opt] = options[opt];
-             }
+            if (!(opt in this.options)) {
+                params[opt] = options[opt];
+                delete options[opt];
+            }
         }
-        L.setOptions(this, opts);
+        L.setOptions(this, options);
         this.wmsParams = L.extend({}, this.defaultWmsParams, params);
     },
 
@@ -411,10 +420,10 @@ wms.Overlay = L.Layer.extend({
     },
 
     'setOpacity': function(opacity) {
-         this.options.opacity = opacity;
-         if (this._currentOverlay) {
-             this._currentOverlay.setOpacity(opacity);
-         }
+        this.options.opacity = opacity;
+        if (this._currentOverlay) {
+            this._currentOverlay.setOpacity(opacity);
+        }
     },
 
     'bringToBack': function() {
