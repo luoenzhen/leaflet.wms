@@ -172,9 +172,9 @@ wms.Source = L.Layer.extend({
 
         function done(result) {
             this.hideWaiting();
-            var test_result = "hello world";
-            var text = this.parseFeatureInfo(test_result, url);
-            callback.call(this, latlng, text);
+            var text = this.parseFeatureInfo(result, url);
+            var test_text = "hello world";
+            callback.call(this, latlng, test_text);
         }
     },
 
