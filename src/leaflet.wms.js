@@ -225,7 +225,8 @@ wms.Source = L.Layer.extend({
         if (!this._map) {
             return;
         }
-        this._map.openPopup(info, latlng);
+        var formatted_info = "hello world";
+        this._map.openPopup(formatted_info, latlng);
     },
 
     'showWaiting': function() {
