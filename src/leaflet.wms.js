@@ -171,12 +171,9 @@ wms.Source = L.Layer.extend({
         this.ajax(url, done);
 
         function done(result) {
-            console.log("result", result);
             this.hideWaiting();
             var text = this.parseFeatureInfo(result, url);
-            console.log("text", text);
-            var test_text = "hello world";
-            callback.call(this, latlng, test_text);
+            callback.call(this, latlng, text);
         }
     },
 
@@ -220,7 +217,8 @@ wms.Source = L.Layer.extend({
             // Try loading content in <iframe>.
             result = "<iframe src='" + url + "' style='border:none'>";
         }
-        return result;
+        var test_result = "hello world";
+        return test_result;
     },
 
     'showFeatureInfo': function(latlng, info) {
