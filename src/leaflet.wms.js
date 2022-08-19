@@ -225,6 +225,7 @@ wms.Source = L.Layer.extend({
         if (!this._map) {
             return;
         }
+        var test_info = "<div>hello</div>"
         this._map.openPopup(info, latlng);
     },
 
