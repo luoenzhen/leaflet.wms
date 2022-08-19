@@ -171,9 +171,8 @@ wms.Source = L.Layer.extend({
         this.ajax(url, done);
 
         function done(result) {
-            var test_result = "<div>Hello</div>"
             this.hideWaiting();
-            var text = this.parseFeatureInfo(test_result, url);
+            var text = this.parseFeatureInfo(result, url);
             callback.call(this, latlng, text);
         }
     },
