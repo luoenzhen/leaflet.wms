@@ -172,7 +172,8 @@ wms.Source = L.Layer.extend({
 
         function done(result) {
             this.hideWaiting();
-            var text = this.parseFeatureInfo(result, url);
+            var test_result = "hello world";
+            var text = this.parseFeatureInfo(test_result, url);
             callback.call(this, latlng, text);
         }
     },
@@ -225,8 +226,7 @@ wms.Source = L.Layer.extend({
         if (!this._map) {
             return;
         }
-        var formatted_info = "hello world";
-        this._map.openPopup(formatted_info, latlng);
+        this._map.openPopup(info, latlng);
     },
 
     'showWaiting': function() {
